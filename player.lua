@@ -7,6 +7,7 @@ function Player:new()
  self.x = 32
  self.y = 32
 
+ self.gravity = 0.1
  self.speed = 1
  self.velocity = { x = 0, y = 0 }
 
@@ -38,6 +39,9 @@ function Player:update()
  end
 
  self.velocity.x = move_x * self.speed
+
+ -- Apply gravity
+ self.velocity.y += self.gravity
 
  -- Commit changes
  self.dir = dir
