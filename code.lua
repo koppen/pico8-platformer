@@ -3,6 +3,7 @@ function init()
 end
 
 function update()
+ player:update()
 end
 
 function draw()

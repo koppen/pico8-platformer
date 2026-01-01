@@ -4,6 +4,7 @@ __lua__
 
 #include code.lua
 #include base_state.lua
+#include inputs.lua
 #include player.lua
 
 function _init()

@@ -16,3 +16,11 @@ end
 function Player:draw()
  spr(self.s, self.x, self.y)
 end
+
+function Player:update()
+ if Inputs:left() then
+  self.x -= 1
+ elseif Inputs:right() then
+  self.x += 1
+ end
+end
