@@ -25,6 +25,10 @@ function Player:draw()
  spr(self.s, self.x, self.y, 1, 1, flip_x)
 end
 
+function Player:on_floor()
+ return self.y >= 100
+end
+
 function Player:update()
  local dir = self.dir
  local move_x = 0
@@ -42,6 +46,10 @@ function Player:update()
 
  -- Apply gravity
  self.velocity.y += self.gravity
+
+ if self:on_floor() then
+  self.velocity.y = 0
+ end
 
  -- Commit changes
  self.dir = dir
