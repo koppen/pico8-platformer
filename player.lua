@@ -7,6 +7,9 @@ function Player:new()
  self.x = 32
  self.y = 32
 
+ self.speed = 1
+ self.velocity = { x = 0, y = 0 }
+
  -- Sprite
  self.s = 1
 
@@ -34,8 +37,10 @@ function Player:update()
   move_x += 1
  end
 
+ self.velocity.x = move_x * self.speed
+
  -- Commit changes
  self.dir = dir
- self.x += move_x
- self.y += move_y
+ self.x += self.velocity.x
+ self.y += self.velocity.y
 end
