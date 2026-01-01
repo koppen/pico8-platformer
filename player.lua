@@ -18,6 +18,7 @@ function Player:new()
  self.dir = 0
 
  self.traits = {
+  Controllable:new(self),
   Fall:new(self)
  }
 
@@ -34,27 +35,12 @@ function Player:on_floor()
 end
 
 function Player:update()
- local dir = self.dir
- local move_x = 0
- local move_y = 0
-
- if Inputs:left() then
-  dir = -1
-  move_x -= 1
- elseif Inputs:right() then
-  dir = 1
-  move_x += 1
- end
-
- self.velocity.x = move_x * self.speed
-
  -- Process traits
  for trait in all(self.traits) do
   trait:update()
  end
 
  -- Commit changes
- self.dir = dir
  self.x += self.velocity.x
  self.y += self.velocity.y
 end
