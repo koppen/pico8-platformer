@@ -10,6 +10,9 @@ function Player:new()
  -- Sprite
  self.s = 1
 
+ -- Initials
+ self.dir = 0
+
  return self
 end
 
@@ -19,11 +22,20 @@ function Player:draw()
 end
 
 function Player:update()
+ local dir = self.dir
+ local move_x = 0
+ local move_y = 0
+
  if Inputs:left() then
-  self.x -= 1
-  self.dir = -1
+  dir = -1
+  move_x -= 1
  elseif Inputs:right() then
-  self.x += 1
-  self.dir = 1
+  dir = 1
+  move_x += 1
  end
+
+ -- Commit changes
+ self.dir = dir
+ self.x += move_x
+ self.y += move_y
 end
