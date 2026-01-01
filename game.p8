@@ -7,14 +7,15 @@ __lua__
 #include player.lua
 
 function _init()
+ init()
 end
 
 function _update60()
+  update()
 end
 
 function _draw()
- cls()
-
+ draw()
 end
 __gfx__
 00000000099999990000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
