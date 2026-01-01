@@ -6,6 +6,7 @@ __lua__
 #include base_state.lua
 #include inputs.lua
 #include player.lua
+#include traits/fall.lua
 
 function _init()
  init()

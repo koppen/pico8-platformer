@@ -17,6 +17,10 @@ function Player:new()
  -- Initials
  self.dir = 0
 
+ self.traits = {
+  Fall:new(self)
+ }
+
  return self
 end
 
@@ -44,11 +48,9 @@ function Player:update()
 
  self.velocity.x = move_x * self.speed
 
- -- Apply gravity
- self.velocity.y += self.gravity
-
- if self:on_floor() then
-  self.velocity.y = 0
+ -- Process traits
+ for trait in all(self.traits) do
+  trait:update()
  end
 
  -- Commit changes
