@@ -14,13 +14,16 @@ function Player:new()
 end
 
 function Player:draw()
- spr(self.s, self.x, self.y)
+ local flip_x = self.dir == -1
+ spr(self.s, self.x, self.y, 1, 1, flip_x)
 end
 
 function Player:update()
  if Inputs:left() then
   self.x -= 1
+  self.dir = -1
  elseif Inputs:right() then
   self.x += 1
+  self.dir = 1
  end
 end
