@@ -19,7 +19,8 @@ function Player:new()
 
  self.traits = {
   Controllable:new(self),
-  Fall:new(self)
+  Fall:new(self),
+  Jump:new(self)
  }
 
  return self

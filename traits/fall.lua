@@ -23,10 +23,11 @@ function Fall:update()
   x = self.object.velocity.x,
   y = self.object.velocity.y + self.object.gravity
  }
+ local dir = sgn(candidate_velocity.y)
 
  -- Generate trajectory points for collision detection
  local trajectory	= {}
- for cy = original_y, original_y + candidate_velocity.y do
+ for cy = original_y, original_y + candidate_velocity.y, dir do
   add(trajectory, { x = self.object.x, y = cy})
  end
  -- Add the final position to the trajectory
@@ -38,7 +39,7 @@ function Fall:update()
   -- Tentatively move the object to the point
   self.object.x = point.x
   self.object.y = point.y
-  collided = map_collision(self.object:bottom_inner())
+  collided = map_collision(self.object:inner())
   if collided then
    break
   else

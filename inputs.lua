@@ -10,6 +10,10 @@ Inputs.Map = {
  action = 5
 }
 
+function Inputs:jump()
+ return btn(Inputs.Map.jump)
+end
+
 function Inputs:left()
  return btn(Inputs.Map.left)
 end
