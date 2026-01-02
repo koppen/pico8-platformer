@@ -54,12 +54,27 @@ function Player:draw()
  spr(self.s, self.x, self.y, 1, 1, flip_x)
 end
 
+-- Returns the inner corner points of the player for collision detection
+function Player:inner()
+ return {
+  self:bottom_left(),
+  self:bottom_right(),
+  self:top_left(),
+  self:top_right()
+ }
+end
+
+function Player:top_left()
+ return { x = self.x, y = self.y }
+end
+
+function Player:top_right()
+ return { x = self.x + 7, y = self.y }
+end
+
 function Player:update()
  -- Process traits
  for trait in all(self.traits) do
   trait:update()
  end
-
- -- Commit changes
- self.x += self.velocity.x
 end

@@ -7,7 +7,10 @@ function map_collision(points)
   local tile = mget(tile_x, tile_y)
 
   -- Tile flag 0 is solid or not
-  return fget(tile, 0)
+  local flag = fget(tile, 0)
+  if flag then
+   return true
+  end
  end
 
  return false
