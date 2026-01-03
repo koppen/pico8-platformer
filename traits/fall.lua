@@ -50,7 +50,11 @@ function Fall:update()
  if collided then
   -- Collided, stop falling
   self.object.velocity.y = 0
-
+  if self.object.velocity.x != 0 then
+   self.object:set_state(WalkState)
+  else
+   self.object:set_state(IdleState)
+  end
   -- Move to last free position
   if free_position then
    -- Floor the y coordinate to place the object exactly on the tile
