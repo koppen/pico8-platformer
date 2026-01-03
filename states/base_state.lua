@@ -24,6 +24,10 @@ function BaseState:new(player, animation_name)
  return self
 end
 
+function BaseState:can_enter()
+ return true
+end
+
 function BaseState:enter()
  if self.player and self.player.animations then
   self.player.animations:play(self.animation_name)

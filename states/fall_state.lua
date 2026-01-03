@@ -13,6 +13,10 @@ function FallState:new(player, animation_name)
  return self
 end
 
+function FallState:can_enter()
+ return true
+end
+
 function FallState:enter()
  if self.player and self.player.animations then
   self.player.animations:play(self.animation_name)

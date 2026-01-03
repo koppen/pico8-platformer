@@ -15,16 +15,17 @@ function JumpState:new(player, animation_name)
  return self
 end
 
+function JumpState:can_enter()
+ -- On floor?
+ return map_collision(self.player:bottom_outer())
+end
+
 function JumpState:enter()
  if self.player and self.player.animations then
   self.player.animations:play(self.animation_name)
  end
 
- -- TODO: Create a can_enter function that checks if we can jump
- local on_floor = map_collision(self.player:bottom_outer())
- if on_floor then
-   self.player.velocity.y = self.jump_force
- end
+ self.player.velocity.y = self.jump_force
 end
 
 function JumpState:exit()
