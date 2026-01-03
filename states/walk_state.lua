@@ -8,6 +8,7 @@ function WalkState:new(player, animation_name)
 
  self.player = player
  self.animation_name = animation_name or ""
+ self.sprites = {2,3}
 
  return self
 end

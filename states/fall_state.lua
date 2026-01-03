@@ -5,8 +5,11 @@ FallState.key = "fall"
 
 function FallState:new(player, animation_name)
  local self = setmetatable({}, FallState)
+
  self.player = player
  self.animation_name = animation_name or ""
+ self.sprites = {5}
+
  return self
 end
 

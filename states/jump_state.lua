@@ -8,6 +8,7 @@ function JumpState:new(player, animation_name)
 
  self.player = player
  self.animation_name = animation_name or ""
+ self.sprites = {4}
 
  self.jump_force = -3
 

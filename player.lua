@@ -56,7 +56,10 @@ end
 
 function Player:draw()
  local flip_x = self.dir == -1
- spr(self.s, self.x, self.y, 1, 1, flip_x)
+ local sprites = self.state.sprites
+ local sprite_index = flr((time() * 4) % #sprites) + 1
+ local sprite = sprites[sprite_index]
+ spr(sprite, self.x, self.y, 1, 1, flip_x)
 
  if self.state then
   print(self.state.key, 0, 0)
