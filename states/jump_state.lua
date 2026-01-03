@@ -16,8 +16,9 @@ function JumpState:new(player, animation_name)
 end
 
 function JumpState:can_enter()
- -- On floor?
- return map_collision(self.player:bottom_outer())
+ local on_floor = map_collision(self.player:bottom_outer())
+ local space_above = not map_collision(self.player:top_outer())
+ return on_floor and space_above
 end
 
 function JumpState:enter()

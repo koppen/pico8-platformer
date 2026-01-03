@@ -98,6 +98,14 @@ function Player:top_left()
  return { x = self.x, y = self.y }
 end
 
+-- Returns the bottom outer points of the player for collision detection
+function Player:top_outer()
+ return {
+  { x = self.x, y = self.y - 1 },
+  { x = self.x + 7, y = self.y - 1 }
+ }
+end
+
 function Player:top_right()
  return { x = self.x + 7, y = self.y }
 end
