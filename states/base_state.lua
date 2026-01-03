@@ -49,16 +49,15 @@ function BaseState:input(event)
  end
 end
 
-function BaseState:update()
- -- No operation
+function BaseState:update(self)
+ local on_floor = map_collision(self.player:bottom_outer())
+ if not on_floor then
+  self.player:set_state(FallState)
+ end
 end
 
 -- Returns the next state based on physics.
 --
 -- May also modify the player's physics properties as necessary.
 function BaseState:update_physics()
- local on_floor = map_collision(self.player:bottom_outer())
- if not on_floor then
-  return FallState
- end
 end
