@@ -50,7 +50,7 @@ function BaseState:input(event)
 end
 
 function BaseState:update()
- return BaseState.State.Null
+ -- No operation
 end
 
 -- Returns the next state based on physics.

@@ -32,7 +32,7 @@ function WalkState:input(event)
 end
 
 function WalkState:update()
- -- No operation
+ return BaseState:update(self)
 end
 
 function WalkState:update_physics()

@@ -32,7 +32,7 @@ function IdleState:input(event)
 end
 
 function IdleState:update()
- -- No operation
+ return BaseState:update(self)
 end
 
 function IdleState:update_physics()

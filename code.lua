@@ -4,7 +4,7 @@ end
 
 function update()
  player:inputs()
---  player:update()
+ player:update()
  player:update_physics()
 end
 

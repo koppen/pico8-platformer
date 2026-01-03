@@ -110,6 +110,11 @@ function Player:top_right()
  return { x = self.x + 7, y = self.y }
 end
 
+-- Process actions and state updates
+function Player:update()
+ self.state:update()
+end
+
 -- Update the player's physics (position and velocity)
 function Player:update_physics()
  -- Process traits

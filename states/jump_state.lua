@@ -41,6 +41,10 @@ function JumpState:input(event)
  end
 end
 
+function JumpState:update()
+ -- No operation
+end
+
 function JumpState:update_physics()
  BaseState.update_physics(self)
 end
