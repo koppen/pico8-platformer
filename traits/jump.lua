@@ -12,10 +12,10 @@ function Jump:new(object)
 end
 
 function Jump:update()
- if Inputs:jump() then
-  local on_floor = map_collision(self.object:bottom_outer())
-  if on_floor then
-   self.object.velocity.y = self.jump_force
-  end
- end
+--  if self.object.state.key == "jump" then
+--   local on_floor = map_collision(self.object:bottom_outer())
+--   if on_floor then
+--    self.object.velocity.y = self.jump_force
+--   end
+--  end
 end

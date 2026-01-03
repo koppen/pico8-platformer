@@ -3,7 +3,9 @@ function init()
 end
 
 function update()
- player:update()
+ player:inputs()
+--  player:update()
+ player:update_physics()
 end
 
 function draw()

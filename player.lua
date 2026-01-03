@@ -7,6 +7,7 @@ function Player:new()
  self.x = 52
  self.y = 32
 
+ -- Physics
  self.gravity = 0.2
  self.speed = 1
  self.velocity = { x = 0, y = 0 }
@@ -14,14 +15,17 @@ function Player:new()
  -- Sprite
  self.s = 1
 
- -- Initials
+ -- Internals
  self.dir = 0
 
+ -- What can the player do?
  self.traits = {
   Controllable:new(self),
   Fall:new(self),
-  Jump:new(self)
  }
+
+ -- States
+ self.state = IdleState:new(self)
 
  return self
 end
@@ -53,6 +57,10 @@ end
 function Player:draw()
  local flip_x = self.dir == -1
  spr(self.s, self.x, self.y, 1, 1, flip_x)
+
+ if self.state then
+  print(self.state.key, 0, 0)
+ end
 end
 
 -- Returns the inner corner points of the player for collision detection
@@ -65,6 +73,23 @@ function Player:inner()
  }
 end
 
+function Player:inputs()
+ local new_state = self.state:input()
+ self:set_state(new_state)
+end
+
+function Player:set_state(new_state)
+ if new_state and new_state.key then
+  local old_state = self.state
+  if old_state.key != new_state.key then
+   printh("[set_state] Transitioning from " .. old_state.key .. " to " .. new_state.key)
+   old_state:exit()
+   self.state = new_state:new(self)
+   self.state:enter()
+  end
+ end
+end
+
 function Player:top_left()
  return { x = self.x, y = self.y }
 end
@@ -73,9 +98,15 @@ function Player:top_right()
  return { x = self.x + 7, y = self.y }
 end
 
-function Player:update()
+-- Update the player's physics (position and velocity)
+function Player:update_physics()
  -- Process traits
  for trait in all(self.traits) do
   trait:update()
+ end
+
+ if self.state.update_physics then
+  local s = self.state:update_physics()
+  self:set_state(s)
  end
 end

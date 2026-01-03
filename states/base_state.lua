@@ -14,9 +14,13 @@ BaseState.State = {
 }
 
 function BaseState:new(player, animation_name)
+ printh("BaseState:new")
  local self = setmetatable({}, BaseState)
  self.player = player
  self.animation_name = animation_name or ""
+
+ self.key = "base"
+
  return self
 end
 
@@ -30,16 +34,27 @@ function BaseState:exit()
  -- No operation
 end
 
+-- Returns the next state based on input. Returns a State table.
 function BaseState:input(event)
+ if Inputs:jump() then
+  return JumpState
+ elseif Inputs:left() or Inputs:right() then
+  return WalkState
+ else
+  return IdleState
+ end
+end
+
+function BaseState:update()
  return BaseState.State.Null
 end
 
-function BaseState:process(delta)
- return BaseState.State.Null
+-- Returns the next state based on physics.
+--
+-- May also modify the player's physics properties as necessary.
+function BaseState:update_physics()
+ local on_floor = map_collision(self.player:bottom_outer())
+ if not on_floor then
+  return FallState
+ end
 end
-
-function BaseState:physics_process(delta)
- return BaseState.State.Null
-end
-
-print "base_state"

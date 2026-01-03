@@ -2,10 +2,14 @@ pico-8 cartridge // http://www.pico-8.com
 version 43
 __lua__
 #include code.lua
-#include base_state.lua
 #include inputs.lua
 #include map.lua
 #include player.lua
+#include states/base_state.lua
+#include states/idle_state.lua
+#include states/fall_state.lua
+#include states/jump_state.lua
+#include states/walk_state.lua
 #include traits/controllable.lua
 #include traits/fall.lua
 #include traits/jump.lua
