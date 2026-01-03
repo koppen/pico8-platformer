@@ -35,7 +35,7 @@ function FallState:input(event)
     local time_since_last_on_floor = time() - (self.player.last_on_floor_at)
     coyote_time_available = time_since_last_on_floor < self.coyote_time
   end
-  if coyote_time_available then
+  if coyote_time_available and not map_collision(self.player:top_outer()) then
    return JumpState
   else
    return self
