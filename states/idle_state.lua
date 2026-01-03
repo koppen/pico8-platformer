@@ -13,10 +13,6 @@ function IdleState:new(player, animation_name)
  return self
 end
 
-function IdleState:can_enter()
- return true
-end
-
 function IdleState:enter()
  if self.player and self.player.animations then
   self.player.animations:play(self.animation_name)

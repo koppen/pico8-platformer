@@ -13,10 +13,6 @@ function WalkState:new(player, animation_name)
  return self
 end
 
-function WalkState:can_enter()
- return true
-end
-
 function WalkState:enter()
  if self.player and self.player.animations then
   self.player.animations:play(self.animation_name)

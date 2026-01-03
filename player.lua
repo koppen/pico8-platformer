@@ -93,12 +93,10 @@ function Player:set_state(state)
  local old_state = self.state
  if state and state.key and state.key != old_state.key then
   local new_state = state:new(self)
-  if new_state:can_enter() then
    printh("[set_state] Transitioning from " .. old_state.key .. " to " .. new_state.key)
    old_state:exit()
    self.state = new_state
    self.state:enter()
-  end
  end
 end
 

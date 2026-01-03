@@ -10,15 +10,10 @@ function JumpState:new(player, animation_name)
  self.animation_name = animation_name or ""
  self.sprites = {4}
 
+ self.coyote_time = 0.2
  self.jump_force = -3
 
  return self
-end
-
-function JumpState:can_enter()
- local on_floor = map_collision(self.player:bottom_outer())
- local space_above = not map_collision(self.player:top_outer())
- return on_floor and space_above
 end
 
 function JumpState:enter()

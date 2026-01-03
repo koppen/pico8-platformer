@@ -24,10 +24,6 @@ function BaseState:new(player, animation_name)
  return self
 end
 
-function BaseState:can_enter()
- return true
-end
-
 function BaseState:enter()
  if self.player and self.player.animations then
   self.player.animations:play(self.animation_name)
@@ -39,10 +35,16 @@ function BaseState:exit()
 end
 
 -- Returns the next state based on input. Returns a State table.
-function BaseState:input(event)
+function BaseState:input(self)
  if Inputs:jump() then
-  return JumpState
- elseif Inputs:left() or Inputs:right() then
+  local on_floor = map_collision(self.player:bottom_outer())
+  local space_above = not map_collision(self.player:top_outer())
+  if on_floor and space_above then
+   return JumpState
+  end
+ end
+
+ if Inputs:left() or Inputs:right() then
   return WalkState
  else
   return IdleState
