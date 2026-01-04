@@ -21,7 +21,7 @@ function Player:new()
  -- What can the player do?
  self.traits = {
   Controllable:new(self),
-  Fall:new(self),
+  -- Fall:new(self),
  }
 
  -- States
@@ -123,13 +123,18 @@ end
 
 -- Update the player's physics (position and velocity)
 function Player:update_physics()
- -- Process traits
- for trait in all(self.traits) do
-  trait:update()
- end
-
  if self.state.update_physics then
   local s = self.state:update_physics()
   self:set_state(s)
  end
+
+  -- Process traits
+ for trait in all(self.traits) do
+  trait:update()
+ end
+
+ -- At this point the velocity has been finalized, update position
+ printh("Player velocity: (" .. self.velocity.x .. "," .. self.velocity.y .. ")")
+ self.x += self.velocity.x
+ self.y += self.velocity.y
 end

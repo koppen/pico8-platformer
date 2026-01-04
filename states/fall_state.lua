@@ -40,15 +40,9 @@ function FallState:input(event)
   else
    return self
   end
- elseif self:on_floor() then
-  return IdleState
  else
   return self
  end
-end
-
-function FallState:on_floor()
-  return map_collision(self.player:bottom_outer())
 end
 
 function FallState:update()
