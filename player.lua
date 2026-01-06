@@ -81,6 +81,13 @@ function Player:inputs()
  self:set_state(new_state)
 end
 
+function Player:left_outer()
+ return {
+  {x = self.x - 1, y = self.y },
+  {x = self.x - 1, y = self.y + 7 }
+ }
+end
+
 -- Analyze and prepare the player before updating
 function Player:prepare()
  self.is_on_floor = map_collision(self:bottom_outer())
@@ -98,6 +105,13 @@ function Player:set_state(state)
    self.state = new_state
    self.state:enter()
  end
+end
+
+function Player:right_outer()
+ return {
+  {x = self.x + 7 + 1, y = self.y },
+  {x = self.x + 7 + 1, y = self.y + 7 }
+ }
 end
 
 function Player:top_left()
@@ -119,6 +133,11 @@ end
 -- Process actions and state updates
 function Player:update()
  self.state:update()
+
+ -- Process traits
+ for trait in all(self.traits) do
+  trait:update()
+ end
 end
 
 -- Update the player's physics (position and velocity)
@@ -128,15 +147,24 @@ function Player:update_physics()
   self:set_state(s)
  end
 
-  -- Process traits
- for trait in all(self.traits) do
-  trait:update()
+ -- At this point the velocity is a suggestion/wish
+ -- Checking for horizontal collisions...
+ local collided_x, free_position_x = map_trajectory_collision(self, {x = self.velocity.x, y = 0})
+ if collided_x then
+  self.x = free_position_x.x
+  self.y = free_position_x.y
+ else
+  self.x += self.velocity.x
  end
 
- -- At this point the velocity has been finalized, update position
- printh("Player velocity: (" .. self.velocity.x .. "," .. self.velocity.y .. ")")
- self.x += self.velocity.x
- self.y += self.velocity.y
+ -- Checking for vertical collisions...
+ local collided_y, free_position_y = map_trajectory_collision(self, {x = 0, y = self.velocity.y})
+ if collided_y then
+  self.x = free_position_y.x
+  self.y = free_position_y.y
+ else
+  self.y += self.velocity.y
+ end
 
  -- Detect stuckness!
  if map_collision(self:inner()) then

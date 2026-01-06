@@ -11,7 +11,6 @@ __lua__
 #include states/jump_state.lua
 #include states/walk_state.lua
 #include traits/controllable.lua
-#include traits/fall.lua
 #include traits/jump.lua
 
 function _init()

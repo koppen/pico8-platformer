@@ -41,5 +41,15 @@ function JumpState:update()
 end
 
 function JumpState:update_physics()
- BaseState.update_physics(self)
+ local candidate_velocity = {
+  x = self.player.velocity.x,
+  y = self.player.velocity.y + self.player.gravity
+ }
+
+ collided, free_position = map_trajectory_collision(self.player, candidate_velocity)
+ if collided then
+  self.player.velocity.y = 0
+ else
+  self.player.velocity = candidate_velocity
+ end
 end

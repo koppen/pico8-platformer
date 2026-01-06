@@ -24,69 +24,43 @@ end
 -- `velocity` properties.
 --
 -- candidate_velocity: A candidate velocity to check the trajectory for.
-function map_horizontal_trajectory_collision(object, candidate_velocity)
+function map_trajectory_collision(object, candidate_velocity)
  local original_x = object.x
  local original_y = object.y
-
- local dir = sgn(candidate_velocity.x)
-
- -- Generate trajectory points for collision detection
- local trajectory	= {}
- for cx = original_x, original_x + candidate_velocity.x, dir do
-  add(trajectory, { x = cx, y = object.y})
- end
- -- Add the final position to the trajectory
- add(trajectory, { x = original_x + candidate_velocity.x, y = object.y})
+ local end_x = original_x + candidate_velocity.x
+ local end_y = original_y + candidate_velocity.y
 
  local collided = nil
  local free_position = { x = original_x, y = original_y }
- for point in all(trajectory) do
-  -- Tentatively move the object to the point
+
+ local vx = candidate_velocity.x
+ local vy = candidate_velocity.y
+ local steps = max(4, ceil(max(abs(vx), abs(vy))))
+ local dx = (vx / steps)
+ local dy = (vy / steps)
+ local point = {x = end_x, y = end_y}
+
+ for step = 1, steps do
   object.x = point.x
-  -- object.y = point.y
-  collided = map_collision(object:inner())
-  if collided then
-   printh("Horizontal Collision at: " .. point.x .. "," .. point.y)
-   break
-  else
-   printh("No horizontal collision at: " .. point.x .. "," .. point.y)
-   free_position = { x = point.x, y = point.y }
-  end
- end
-
- -- Restore original position
- object.x = original_x
- object.y = original_y
-
- return collided, free_position
-end
-
-function map_vertical_trajectory_collision(object, candidate_velocity)
- local original_x = object.x
- local original_y = object.y
-
- local dir = sgn(candidate_velocity.y)
-
- -- Generate trajectory points for collision detection
- local trajectory	= {}
- for cy = original_y, original_y + candidate_velocity.y, dir do
-  add(trajectory, { x = object.x, y = cy})
- end
- -- Add the final position to the trajectory
- add(trajectory, { x = object.x, y = original_y + candidate_velocity.y})
-
- local collided = nil
- local free_position = { x = original_x, y = original_y }
- for point in all(trajectory) do
-  -- Tentatively move the object to the point
-  -- object.x = point.x
   object.y = point.y
-  collided = map_collision(object:inner())
-  if collided then
-   break
+
+  -- printh("CONSIDERING point: " .. object.x .. "," .. object.y .. " (step " .. step .. " of " .. steps .. ") Remain: vx=" .. vx .. ", vy=" .. vy .. " dx=" .. dx .. ", dy=" .. dy)
+
+  collision = map_collision(object:inner())
+  if collision then
+   collided = true
+
+   -- Move to an earlier position to find the last free position
+   point.x -= dx
+   point.y -= dy
   else
-   free_position = { x = point.x, y = point.y }
+   -- This is the free position closest to the collision
+   free_position = { x = object.x, y = object.y }
+   break
   end
+
+  vx = vx - dx
+  vy = vy - dy
  end
 
  -- Restore original position

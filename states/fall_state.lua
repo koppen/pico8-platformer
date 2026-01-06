@@ -46,10 +46,16 @@ function FallState:input(event)
 end
 
 function FallState:update()
- -- No operation
-
+ if self.player.is_on_floor then
+  self.player:set_state(IdleState)
+ else
+  local candidate_velocity = {
+   x = self.player.velocity.x,
+   y = self.player.velocity.y + self.player.gravity
+  }
+  self.player.velocity = candidate_velocity
+ end
 end
 
 function FallState:update_physics()
- BaseState.update_physics(self)
 end
