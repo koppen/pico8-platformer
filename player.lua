@@ -137,4 +137,10 @@ function Player:update_physics()
  printh("Player velocity: (" .. self.velocity.x .. "," .. self.velocity.y .. ")")
  self.x += self.velocity.x
  self.y += self.velocity.y
+
+ -- Detect stuckness!
+ if map_collision(self:inner()) then
+  printh("PLAYER STUCK AT: " .. self.x .. "," .. self.y)
+  stop()  -- Crash the program to investigate
+ end
 end
