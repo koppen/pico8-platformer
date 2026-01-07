@@ -14,7 +14,6 @@ BaseState.State = {
 }
 
 function BaseState:new(player, animation_name)
- printh("BaseState:new")
  local self = setmetatable({}, BaseState)
  self.player = player
  self.animation_name = animation_name or ""

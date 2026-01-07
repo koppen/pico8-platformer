@@ -22,6 +22,7 @@ function JumpState:enter()
  end
 
  self.player.velocity.y = self.jump_force
+ self.player.coyote_time_available = false
 end
 
 function JumpState:exit()

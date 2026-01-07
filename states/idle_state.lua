@@ -17,6 +17,8 @@ function IdleState:enter()
  if self.player and self.player.animations then
   self.player.animations:play(self.animation_name)
  end
+
+ self.player.coyote_time_available = true
 end
 
 function IdleState:exit()
