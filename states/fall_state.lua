@@ -46,7 +46,7 @@ function FallState:update()
  else
   local candidate_velocity = {
    x = self.player.velocity.x,
-   y = self.player.velocity.y + self.player.gravity
+   y = self.player.velocity.y + self.player.gravity * 1.25
   }
   self.player.velocity = candidate_velocity
  end
