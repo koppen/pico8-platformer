@@ -28,6 +28,11 @@ function IdleState:input(event)
 end
 
 function IdleState:update()
+ self.player.x = flr(self.player.x)
+ self.player.y = flr(self.player.y)
+ self.player.velocity.x = 0
+ self.player.velocity.y = 0
+
  return BaseState:update(self)
 end
 
