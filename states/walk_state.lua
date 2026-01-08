@@ -30,6 +30,9 @@ function WalkState:input(event)
 end
 
 function WalkState:update()
+ self.player.y = flr(self.player.y)
+ self.player.velocity.y = 0
+
  return BaseState:update(self)
 end
 
