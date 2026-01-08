@@ -42,9 +42,15 @@ function JumpState:update()
 end
 
 function JumpState:update_physics()
+  local gravity_modifier = 1
+  -- Hangtime
+  if (self.player.velocity.y > -1) and (self.player.velocity.y < -0.1) then
+   gravity_modifier = -self.player.velocity.y / 0.725
+  end
+
  local candidate_velocity = {
   x = self.player.velocity.x,
-  y = self.player.velocity.y + self.player.gravity * 0.7
+  y = self.player.velocity.y + self.player.gravity * gravity_modifier
  }
 
  collided, free_position = map_trajectory_collision(self.player, candidate_velocity)

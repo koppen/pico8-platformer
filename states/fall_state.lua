@@ -44,9 +44,14 @@ function FallState:update()
  if self.player.is_on_floor then
   self.player:set_state(IdleState)
  else
+  local gravity_modifier = 1.25
+  if (self.player.velocity.y > 0) and (self.player.velocity.y < 1) then
+   -- Hangtime
+   gravity_modifier = self.player.velocity.y / 0.725
+  end
   local candidate_velocity = {
    x = self.player.velocity.x,
-   y = self.player.velocity.y + self.player.gravity * 1.25
+   y = self.player.velocity.y + self.player.gravity * gravity_modifier
   }
   self.player.velocity = candidate_velocity
  end
