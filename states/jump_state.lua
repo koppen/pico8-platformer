@@ -11,7 +11,10 @@ function JumpState:new(player, animation_name)
  self.sprites = {4}
 
  self.coyote_time = 0.2
- self.jump_force = -3
+ self.jump_force = -1.9
+
+ -- How long the player can hold the jump button to continue jumping
+ self.jump_time_window = 0.16
 
  return self
 end
@@ -20,6 +23,8 @@ function JumpState:enter()
  if self.player and self.player.animations then
   self.player.animations:play(self.animation_name)
  end
+
+ self.entered_at = time()
 
  self.player.velocity.y = self.jump_force
  self.player.coyote_time_available = false
@@ -30,10 +35,14 @@ function JumpState:exit()
 end
 
 function JumpState:input(event)
+ if Inputs:jump() and (time() < self.entered_at + self.jump_time_window) then
+  self.player.velocity.y = self.jump_force
+ end
+
  if self.player.velocity.y < 0 then
-   return self
+  return self
  else
-   return FallState
+  return FallState
  end
 end
 
