@@ -1,6 +1,11 @@
 function init()
  player = Player.new()
  particles = {}
+
+ shake = {
+  duration = 0,
+  magnitude = 0
+ }
 end
 
 function update()
@@ -20,7 +25,19 @@ end
 function draw()
  cls()
 
- map(0,0)
+ if shake.duration > 0 then
+  screen_x = rnd(shake.magnitude)
+  screen_y = rnd(shake.magnitude)
+
+  shake.duration -= 0.016 -- assuming 60 FPS
+ else
+  screen_x = 0
+  screen_y = 0
+
+  shake.magnitude = 0
+ end
+
+ map(0,0, screen_x, screen_y)
 
  player:draw()
 

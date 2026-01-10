@@ -25,7 +25,10 @@ function FallState:enter(old_state)
 end
 
 function FallState:exit()
- -- No operation
+ if self.player.velocity.y > 1 then
+  shake.duration = 0.2
+  shake.magnitude = self.player.velocity.y * 0.25
+ end
 end
 
 function FallState:input(event)
