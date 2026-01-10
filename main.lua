@@ -1,5 +1,4 @@
 function init()
- player = Player.new()
  particles = {}
 
  shake = {
@@ -9,7 +8,19 @@ function init()
 end
 
 function update()
- player:update()
+ if player then
+  player:update()
+ else
+  if no_player_since then
+   if (time() - no_player_since) > 1 then
+    no_player_since = nil
+    -- Respawn logic could go here
+    player = Player.new()
+   end
+  else
+   no_player_since = time()
+  end
+ end
 
  for p in all(particles) do
   p:update()
@@ -36,9 +47,23 @@ function draw()
 
  map(0,0, screen_x, screen_y)
 
- player:draw()
+ if player then
+  player:draw()
+ end
 
  for p in all(particles) do
   p:draw()
+ end
+end
+
+function die()
+ if player then
+  shake = {
+   duration = 0.5,
+   magnitude = 2
+  }
+
+  player:explode()
+  player = nil
  end
 end

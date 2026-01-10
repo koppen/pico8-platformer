@@ -16,6 +16,19 @@ function map_collision(points)
  return false
 end
 
+-- Returns the tiles at the given points
+function map_tiles_at(points)
+ local tiles = {}
+ for point in all(points) do
+  local tile_x = flr(point.x / 8)
+  local tile_y = flr(point.y / 8)
+
+  local tile = mget(tile_x, tile_y)
+  add(tiles, tile)
+ end
+ return tiles
+end
+
 -- Detects collisions along the object's trajectory.
 --
 -- Returns collided, last_free_position

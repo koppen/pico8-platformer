@@ -21,6 +21,7 @@ function Player:new()
 
  -- Internals
  self.dir = 0
+ self.jumps_available = 0
  self.max_jumps = 2
 
  -- What can the player do?
@@ -73,6 +74,19 @@ function Player:draw()
 
  if self.state then
   print(self.state.key, 0, 0)
+ end
+end
+
+function Player:explode()
+ for n = 1,20 do
+  Particle:spawn(
+   player:bottom_center(),
+   flr(rnd(2)),
+   8,
+   rnd(0.5),
+   rnd() * 2 - 1 + player.velocity.x * 0.5,
+   rnd() * -1 + player.velocity.y * 0.5
+  )
  end
 end
 
@@ -156,6 +170,14 @@ function Player:update()
  self:inputs()
  self:process_actions()
  self:update_physics()
+
+ for tile in all(map_tiles_at(self:inner())) do
+  -- Tile flag 1 is deadly or not
+  local flag = fget(tile, 1)
+  if flag then
+   die()
+  end
+ end
 end
 
 -- Update the player's physics (position and velocity)
