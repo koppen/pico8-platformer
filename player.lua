@@ -30,6 +30,10 @@ function Player:new()
  return self
 end
 
+function Player:bottom_center()
+ return { x = self.x + 4, y = self.y + 7 }
+end
+
 -- Returns the bottom inner points of the player for collision detection
 function Player:bottom_inner()
  return {

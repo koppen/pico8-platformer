@@ -31,8 +31,7 @@ function FallState:exit()
 
   for n = 1,ceil(self.player.velocity.y * 2) do
    Particle:spawn(
-    self.player.x + 4,
-    self.player.y + 8,
+    self.player:bottom_center(),
     flr(rnd(2)),
     7,
     rnd(0.5),

@@ -1,11 +1,11 @@
 Particle = {}
 Particle.__index = Particle
 
-function Particle:spawn(x, y, radius, color, life, vx, vy)
+function Particle:spawn(pos, radius, color, life, vx, vy)
  local p = Particle:new()
 
- p.x = x
- p.y = y
+ p.x = pos.x
+ p.y = pos.y
  p.vx = vx
  p.vy = vy
  p.radius = radius
