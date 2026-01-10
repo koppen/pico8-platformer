@@ -28,6 +28,7 @@ function JumpState:enter()
 
  self.player.velocity.y = self.jump_force
  self.player.coyote_time_available = false
+ self.player.jump_available = false
 
  for n = 1,4 do
   Particle:spawn(

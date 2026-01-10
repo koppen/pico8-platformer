@@ -96,6 +96,10 @@ end
 -- Analyze and prepare the player before updating
 function Player:prepare()
  self.is_on_floor = map_collision(self:bottom_outer())
+
+ if not Inputs:jump() then
+  self.jump_available = true
+ end
 end
 
 function Player:set_state(state)

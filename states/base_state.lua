@@ -35,7 +35,7 @@ end
 
 -- Returns the next state based on input. Returns a State table.
 function BaseState:input(self)
- if Inputs:jump() then
+ if Inputs:jump() and self.player.jump_available then
   local on_floor = map_collision(self.player:bottom_outer())
   local space_above = not map_collision(self.player:top_outer())
   if on_floor and space_above then
