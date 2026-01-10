@@ -4,6 +4,7 @@ __lua__
 #include main.lua
 #include inputs.lua
 #include map.lua
+#include particle.lua
 #include player.lua
 #include states/base_state.lua
 #include states/idle_state.lua

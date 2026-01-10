@@ -103,7 +103,7 @@ function Player:set_state(state)
    printh("[set_state] Transitioning from " .. old_state.key .. " to " .. new_state.key)
    old_state:exit()
    self.state = new_state
-   self.state:enter()
+   self.state:enter(old_state)
  end
 end
 

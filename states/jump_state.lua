@@ -28,6 +28,30 @@ function JumpState:enter()
 
  self.player.velocity.y = self.jump_force
  self.player.coyote_time_available = false
+
+ for n = 1,4 do
+  Particle:spawn(
+   self.player.x + 4,
+   self.player.y + 8,
+   flr(rnd(2)),
+   7,
+   rnd(0.25),
+   rnd() * 1 - 0.5,
+   rnd() * 0.05 - 0.1
+  )
+ end
+
+ for n = 1,8 do
+  Particle:spawn(
+  self.player.x + 4,
+  self.player.y + 8,
+  flr(rnd(1)),
+  7,
+  rnd(0.25),
+  rnd() * 0.05 - 0.1,
+  rnd() * -0.5 - 0.25
+  )
+ end
 end
 
 function JumpState:exit()
