@@ -29,6 +29,7 @@ function JumpState:enter()
  self.player.velocity.y = self.jump_force
  self.player.coyote_time_available = false
  self.player.jump_available = false
+ self.player.jumps_available -= 1
 
  for n = 1,4 do
   Particle:spawn(
@@ -58,8 +59,14 @@ function JumpState:exit()
 end
 
 function JumpState:input(event)
- if Inputs:jump() and (time() < self.entered_at + self.jump_time_window) then
-  self.player.velocity.y = self.jump_force
+ if Inputs:jump() and not map_collision(self.player:top_outer()) then
+  if (time() < self.entered_at + self.jump_time_window) then
+   -- We're in the jump higher window, allow regular jump
+   self.player.velocity.y = self.jump_force
+  elseif self.player.jump_available and (self.player.jumps_available > 0) then
+   -- Use extra jumps, reenter jump state
+   self:enter()
+  end
  end
 
  if self.player.velocity.y < 0 then

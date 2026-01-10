@@ -43,10 +43,14 @@ function FallState:exit()
 end
 
 function FallState:input(event)
- if Inputs:jump() and self.player.coyote_time_available and not map_collision(self.player:top_outer()) then
-  return JumpState
- else
-  return self
+ if Inputs:jump() and not map_collision(self.player:top_outer()) then
+  if self.player.coyote_time_available then
+   -- We're in the coyote time window, allow regular jump
+   self.player:set_state(JumpState)
+  elseif self.player.jump_available and (self.player.jumps_available > 0) then
+   -- Use extra jumps
+   self.player:set_state(JumpState)
+  end
  end
 end
 

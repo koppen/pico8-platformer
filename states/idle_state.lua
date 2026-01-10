@@ -19,6 +19,7 @@ function IdleState:enter()
  end
 
  self.player.coyote_time_available = true
+ self.player.jumps_available = self.player.max_jumps
 end
 
 function IdleState:exit()

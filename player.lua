@@ -17,6 +17,7 @@ function Player:new()
 
  -- Internals
  self.dir = 0
+ self.max_jumps = 2
 
  -- What can the player do?
  self.traits = {
