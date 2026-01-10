@@ -28,6 +28,18 @@ function FallState:exit()
  if self.player.velocity.y > 1 then
   shake.duration = 0.2
   shake.magnitude = self.player.velocity.y * 0.25
+
+  for n = 1,ceil(self.player.velocity.y * 2) do
+   Particle:spawn(
+    self.player.x + 4,
+    self.player.y + 8,
+    flr(rnd(2)),
+    7,
+    rnd(0.5),
+    ((rnd() * self.player.velocity.y) - self.player.velocity.y * 0.5) * 0.25,
+    0
+   )
+  end
  end
 end
 
