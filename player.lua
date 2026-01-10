@@ -83,9 +83,10 @@ function Player:explode()
    player:bottom_center(),
    flr(rnd(2)),
    8,
-   rnd(0.5),
+   rnd(1.5),
    rnd() * 2 - 1 + player.velocity.x * 0.5,
-   rnd() * -1 + player.velocity.y * 0.5
+   rnd() * -1 + player.velocity.y * 0.5,
+   self.gravity / 4
   )
  end
 end

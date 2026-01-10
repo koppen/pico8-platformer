@@ -1,13 +1,14 @@
 Particle = {}
 Particle.__index = Particle
 
-function Particle:spawn(pos, radius, color, life, vx, vy)
+function Particle:spawn(pos, radius, color, life, vx, vy, gravity)
  local p = Particle:new()
 
  p.x = pos.x
  p.y = pos.y
  p.vx = vx
  p.vy = vy
+ p.gravity = gravity or 0
  p.radius = radius
  p.color = color
  p.life = life -- seconds
@@ -27,6 +28,8 @@ function Particle:update()
 
  self.x += self.vx
  self.y += self.vy
+
+ self.vy += self.gravity
 end
 
 function Particle:is_dead()
