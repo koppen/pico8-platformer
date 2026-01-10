@@ -96,9 +96,6 @@ end
 -- Analyze and prepare the player before updating
 function Player:prepare()
  self.is_on_floor = map_collision(self:bottom_outer())
- if self.is_on_floor then
-  self.last_on_floor_at = time()
- end
 end
 
 function Player:set_state(state)
