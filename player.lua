@@ -7,6 +7,10 @@ function Player:new()
  self.x = 52
  self.y = 32
 
+ self.h = 8
+ self.w = 8
+ self.px = 1
+
  -- Physics
  self.gravity = 0.2
  self.speed = 1
@@ -32,7 +36,7 @@ function Player:new()
 end
 
 function Player:bottom_center()
- return { x = self.x + 4, y = self.y + 7 }
+ return { x = self.x + self.w / 2, y = self.y + self.h - 1 }
 end
 
 -- Returns the bottom inner points of the player for collision detection
@@ -44,25 +48,25 @@ function Player:bottom_inner()
 end
 
 function Player:bottom_left()
- return { x = self.x, y = self.y + 7 }
+ return { x = self.x + self.px, y = self.y + self.h - 1 }
 end
 
 function Player:bottom_right()
- return { x = self.x + 7, y = self.y + 7 }
+ return { x = self.x + (self.w - self.px) - 1, y = self.y + self.h - 1 }
 end
 
 -- Returns the bottom outer points of the player for collision detection
 function Player:bottom_outer()
  return {
-  { x = self.x, y = self.y + 8 },
-  { x = self.x + 7, y = self.y + 8 }
+  { x = self.x + self.px, y = self.y + self.h },
+  { x = self.x + (self.w - self.px) - 1, y = self.y + self.h }
  }
 end
 
 function Player:draw()
  local flip_x = self.dir == -1
  local sprites = self.state.sprites
- local sprite_index = flr((time() * 4) % #sprites) + 1
+ local sprite_index = flr((time() * 8) % #sprites) + 1
  local sprite = sprites[sprite_index]
 
  spr(sprite, self.x + screen_x, self.y + screen_y, 1, 1, flip_x)
@@ -89,8 +93,8 @@ end
 
 function Player:left_outer()
  return {
-  {x = self.x - 1, y = self.y },
-  {x = self.x - 1, y = self.y + 7 }
+  {x = self.x + self.px - 1, y = self.y },
+  {x = self.x + self.px - 1, y = self.y + self.h - 1 }
  }
 end
 
@@ -116,25 +120,25 @@ end
 
 function Player:right_outer()
  return {
-  {x = self.x + 7 + 1, y = self.y },
-  {x = self.x + 7 + 1, y = self.y + 7 }
+  {x = self.x + (self.w - self.px), y = self.y },
+  {x = self.x + (self.w - self.px), y = self.y + self.h - 1}
  }
 end
 
 function Player:top_left()
- return { x = self.x, y = self.y }
+ return { x = self.x + self.px, y = self.y }
 end
 
 -- Returns the bottom outer points of the player for collision detection
 function Player:top_outer()
  return {
-  { x = self.x, y = self.y - 1 },
-  { x = self.x + 7, y = self.y - 1 }
+  { x = self.x + self.px, y = self.y - 1 },
+  { x = self.x + (self.w - self.px) - 1, y = self.y - 1 }
  }
 end
 
 function Player:top_right()
- return { x = self.x + 7, y = self.y }
+ return { x = self.x + (self.w - self.px) - 1, y = self.y }
 end
 
 -- Process actions and state updates
