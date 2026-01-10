@@ -132,13 +132,20 @@ function Player:top_right()
 end
 
 -- Process actions and state updates
-function Player:update()
+function Player:process_actions()
  self.state:update()
 
  -- Process traits
  for trait in all(self.traits) do
   trait:update()
  end
+end
+
+function Player:update()
+ self:prepare()
+ self:inputs()
+ self:process_actions()
+ self:update_physics()
 end
 
 -- Update the player's physics (position and velocity)
