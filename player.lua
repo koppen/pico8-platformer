@@ -9,7 +9,7 @@ function Player:new()
 
  self.h = 8
  self.w = 8
- self.px = 1
+ self.px = 0
 
  -- Physics
  self.gravity = 0.2
@@ -66,7 +66,7 @@ end
 function Player:draw()
  local flip_x = self.dir == -1
  local sprites = self.state.sprites
- local sprite_index = flr((time() * 8) % #sprites) + 1
+ local sprite_index = flr((time() * 4) % #sprites) + 1
  local sprite = sprites[sprite_index]
 
  spr(sprite, self.x + screen_x, self.y + screen_y, 1, 1, flip_x)
