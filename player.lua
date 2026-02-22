@@ -40,7 +40,8 @@ function Player:new()
 end
 
 function Player:bottom_center()
- return { x = self.x + (self.hit.x + self.hit.w) / 2, y = self.y + self.hit.y + self.hit.h - 1 }
+ return { x = self:left_x() + self.hit.w / 2, y = self:bottom_y() }
+
 end
 
 -- Returns the bottom inner points of the player for collision detection
@@ -52,19 +53,24 @@ function Player:bottom_inner()
 end
 
 function Player:bottom_left()
- return { x = self.x + self.hit.x, y = self.y + self.hit.y + self.hit.h - 1 }
+ return { x = self:left_x(), y = self:bottom_y() }
 end
 
 function Player:bottom_right()
- return { x = self.x + self.hit.x + self.hit.w - 1, y = self.y + self.hit.y + self.hit.h - 1 }
+ return { x = self:right_x(), y = self:bottom_y() }
 end
 
 -- Returns the bottom outer points of the player for collision detection
 function Player:bottom_outer()
  return {
-  { x = self.x + self.hit.x, y = self.y + self.hit.y + self.hit.h },
-  { x = self.x + self.hit.x + self.hit.w - 1, y = self.y + self.hit.y + self.hit.h }
+  { x = self:left_x(), y = self.y + self.hit.y + self.hit.h },
+  { x = self:right_x(), y = self.y + self.hit.y + self.hit.h }
  }
+end
+
+-- Returns the y coordinate of the bottom of the player
+function Player:bottom_y()
+ return self.y + self.hit.y + self.hit.h - 1
 end
 
 function Player:draw()
@@ -105,10 +111,15 @@ function Player:inputs()
  self:set_state(new_state)
 end
 
+-- Returns the x coordinate of the left of the player
+function Player:left_x()
+ return self.x + self.hit.x
+end
+
 function Player:left_outer()
  return {
-  {x = self.x + self.hit.x - 1, y = self.y + self.hit.y },
-  {x = self.x + self.hit.x - 1, y = self.y + self.hit.y + self.hit.h - 1 }
+  {x = self:left_x() - 1, y = self:top_y() },
+  {x = self:left_x() - 1, y = self:bottom_y() }
  }
 end
 
@@ -132,27 +143,37 @@ function Player:set_state(state)
  end
 end
 
+-- Returns the x coordinate of the right of the player
+function Player:right_x()
+ return self.x + self.hit.x + self.hit.w - 1
+end
+
 function Player:right_outer()
  return {
-  {x = self.x + self.hit.x + self.hit.w, y = self.y + self.hit.y },
-  {x = self.x + self.hit.x + self.hit.w, y = self.y + self.hit.y + self.hit.h - 1}
+  {x = self:right_x() + 1, y = self:top_y() },
+  {x = self:right_x() + 1, y = self:bottom_y() }
  }
 end
 
+-- Returns the y coordinate of the top of the player
+function Player:top_y()
+ return self.y + self.hit.y
+end
+
 function Player:top_left()
- return { x = self.x + self.hit.x, y = self.y + self.hit.y }
+ return { x = self:left_x(), y = self:top_y() }
 end
 
 -- Returns the top outer points of the player for collision detection
 function Player:top_outer()
  return {
-  { x = self.x + self.hit.x, y = self.y + self.hit.y - 1 },
-  { x = self.x + self.hit.x + self.hit.w - 1, y = self.y + self.hit.y - 1 }
+  { x = self:left_x(), y = self:top_y() - 1 },
+  { x = self:right_x(), y = self:top_y() - 1 }
  }
 end
 
 function Player:top_right()
- return { x = self.x + self.hit.x + self.hit.w - 1, y = self.y + self.hit.y }
+ return { x = self:right_x(), y = self:top_y() }
 end
 
 -- Process actions and state updates
