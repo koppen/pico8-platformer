@@ -44,14 +44,6 @@ function Player:bottom_center()
 
 end
 
--- Returns the bottom inner points of the player for collision detection
-function Player:bottom_inner()
- return {
-  self:bottom_left(),
-  self:bottom_right()
- }
-end
-
 function Player:bottom_left()
  return { x = self:left_x(), y = self:bottom_y() }
 end
