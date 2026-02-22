@@ -71,10 +71,6 @@ function Player:draw()
  local sprite = sprites[sprite_index]
 
  spr(sprite, self.x, self.y, 1, 1, flip_x)
-
- if self.state then
-  print(self.state.key, 0, 0)
- end
 end
 
 function Player:explode()
